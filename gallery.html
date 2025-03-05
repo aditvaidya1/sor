@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Memories</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="gallery-container">
+        <h1>Our Beautiful Moments 💕</h1>
+        <h2>You accepted my apology hehe 🤭🤭</h2>
+
+        <div class="image-container">
+            <img id="image" src="photos/f2705538-12bc-4877-a2d2-1eabfd04dc59.jpeg" alt="Photo 1" class="fade" />
+        </div>
+
+        <audio autoplay loop>
+            <source src="music/the_night_we_met.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+      <div class="sticker-container">
+      <img src="photos/capybara_sticker.webp" alt="Capybara Sticker" class="sticker" />
+      <img src="photos/cinamon.png" alt="Hello Kitty Sticker" class="sticker" />
+      <img src="photos/bouquet1.jpeg" alt="Capybara Sticker 2" class="sticker" />
+      <img src="photos/bouquet2.jpeg" alt="Capybara Sticker 2" class="sticker" />
+      <img src="photos/boba.jpg" alt="Capybara Sticker 2" class="sticker" />
+    </div>
+
+    <script>
+        const images = [
+            "photos/f2705538-12bc-4877-a2d2-1eabfd04dc59.jpeg",
+            "photos/IMG_6352.jpeg",
+            "photos/IMG_6527.jpeg",
+            "photos/IMG_6549.png",
+            "photos/IMG_6733.png",
+            "photos/IMG_6873.png",
+            "photos/IMG_6881.png",
+            "photos/IMG_6921.jpeg",
+            "photos/IMG_6929.jpeg",
+            "photos/IMG_8514.jpeg"
+        ];
+
+        let currentIndex = 0;
+
+        function showImage(direction) {
+            // Fade out the current image
+            const image = document.getElementById("image");
+            image.classList.remove("fade-in");
+            image.classList.add("fade-out");
+
+            // Wait for the fade-out to finish before updating the image
+            setTimeout(() => {
+                currentIndex += direction;
+                if (currentIndex < 0) {
+                    currentIndex = images.length - 1; // Loop to the last image
+                } else if (currentIndex >= images.length) {
+                    currentIndex = 0; // Loop to the first image
+                }
+                image.src = images[currentIndex]; // Update the image source
+
+                // Fade in the new image
+                image.classList.remove("fade-out");
+                image.classList.add("fade-in");
+            }, 500); // Adjust the time to match the fade-out duration
+        }
+
+        // Set interval to automatically switch images every 3 seconds (3000 ms)
+        setInterval(() => showImage(1), 1000); // Change image every 3 seconds
+
+window.onload = function() {
+            const audio = document.getElementById('background-music');
+            audio.play().catch(e => {
+                console.log('Autoplay was blocked:', e);
+            });
+        };
+  function getRandomPosition() {
+    const x = Math.floor(Math.random() * window.innerWidth);
+    const y = Math.floor(Math.random() * window.innerHeight);
+    const rotation = Math.floor(Math.random() * 360); // Random rotation between 0-360
+    return { x, y, rotation };
+  }
+
+  // Apply random positions and rotations to the stickers
+  window.onload = function() {
+    const stickers = document.querySelectorAll('.sticker');
+
+    stickers.forEach(sticker => {
+      const { x, y, rotation } = getRandomPosition();
+
+      sticker.style.left = `${x}px`; // Random horizontal position
+      sticker.style.top = `${y}px`;  // Random vertical position
+      sticker.style.transform = `rotate(${rotation}deg)`; // Random rotation
+    });
+  };
+    </script>
+</body>
+</html>
